@@ -1,4 +1,8 @@
-import type { FindArticleQuery, FindArticleQueryVariables } from 'types/graphql'
+import type {
+  FindArticleQuery,
+  FindArticleQueryVariables,
+  Post,
+} from 'types/graphql'
 
 import type {
   CellSuccessProps,
@@ -12,12 +16,13 @@ export const QUERY: TypedDocumentNode<
   FindArticleQuery,
   FindArticleQueryVariables
 > = gql`
-  query FindArticleQuery($id: Int!) {
+  query FindArticleQuery($id: String!) {
     article: post(id: $id) {
       id
       title
       body
       createdAt
+      slug
     }
   }
 `
@@ -36,4 +41,10 @@ export const Success = ({
   article,
 }: CellSuccessProps<FindArticleQuery, FindArticleQueryVariables>) => {
   return <Article article={article} />
+}
+
+/* I wonder if this lifecycle function could replace the id with the slug  */
+export function afterQuery({ article }: { article: Post }) {
+  console.log({ article })
+  return { article }
 }

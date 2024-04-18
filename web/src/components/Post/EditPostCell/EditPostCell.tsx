@@ -16,7 +16,7 @@ import { toast } from '@redwoodjs/web/toast'
 import PostForm from 'src/components/Post/PostForm'
 
 export const QUERY: TypedDocumentNode<EditPostById> = gql`
-  query EditPostById($id: Int!) {
+  query EditPostById($id: String!) {
     post: post(id: $id) {
       id
       title
@@ -30,7 +30,7 @@ const UPDATE_POST_MUTATION: TypedDocumentNode<
   EditPostById,
   UpdatePostMutationVariables
 > = gql`
-  mutation UpdatePostMutation($id: Int!, $input: UpdatePostInput!) {
+  mutation UpdatePostMutation($id: String!, $input: UpdatePostInput!) {
     updatePost(id: $id, input: $input) {
       id
       title

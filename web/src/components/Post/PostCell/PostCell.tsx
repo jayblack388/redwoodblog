@@ -12,12 +12,13 @@ export const QUERY: TypedDocumentNode<
   FindPostById,
   FindPostByIdVariables
 > = gql`
-  query FindPostById($id: Int!) {
+  query FindPostById($id: String!) {
     post: post(id: $id) {
       id
       title
       body
       createdAt
+      slug
     }
   }
 `

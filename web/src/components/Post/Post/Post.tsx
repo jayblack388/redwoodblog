@@ -15,7 +15,7 @@ const DELETE_POST_MUTATION: TypedDocumentNode<
   DeletePostMutation,
   DeletePostMutationVariables
 > = gql`
-  mutation DeletePostMutation($id: Int!) {
+  mutation DeletePostMutation($id: String!) {
     deletePost(id: $id) {
       id
     }
@@ -60,6 +60,10 @@ const Post = ({ post }: Props) => {
             <tr>
               <th>Title</th>
               <td>{post.title}</td>
+            </tr>
+            <tr>
+              <th>Slug</th>
+              <td>{post.slug}</td>
             </tr>
             <tr>
               <th>Body</th>

@@ -16,6 +16,7 @@ export const QUERY: TypedDocumentNode<FindPosts, FindPostsVariables> = gql`
       title
       body
       createdAt
+      slug
     }
   }
 `

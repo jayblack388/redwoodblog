@@ -1,5 +1,6 @@
 import type { QueryResolvers, MutationResolvers } from 'types/graphql'
 
+import { slugify } from 'src/functions/slugify'
 import { db } from 'src/lib/db'
 
 export const posts: QueryResolvers['posts'] = () => {
@@ -14,7 +15,7 @@ export const post: QueryResolvers['post'] = ({ id }) => {
 
 export const createPost: MutationResolvers['createPost'] = ({ input }) => {
   return db.post.create({
-    data: input,
+    data: { ...input, slug: slugify(input.title) },
   })
 }
 

@@ -16,7 +16,7 @@ const DELETE_POST_MUTATION: TypedDocumentNode<
   DeletePostMutation,
   DeletePostMutationVariables
 > = gql`
-  mutation DeletePostMutation($id: Int!) {
+  mutation DeletePostMutation($id: String!) {
     deletePost(id: $id) {
       id
     }
@@ -51,9 +51,10 @@ const PostsList = ({ posts }: FindPosts) => {
           <tr>
             <th>Id</th>
             <th>Title</th>
+            <th>Slug</th>
             <th>Body</th>
             <th>Created at</th>
-            <th>&nbsp;</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -61,6 +62,7 @@ const PostsList = ({ posts }: FindPosts) => {
             <tr key={post.id}>
               <td>{truncate(post.id)}</td>
               <td>{truncate(post.title)}</td>
+              <td>{truncate(post.slug)}</td>
               <td>{truncate(post.body)}</td>
               <td>{timeTag(post.createdAt)}</td>
               <td>
