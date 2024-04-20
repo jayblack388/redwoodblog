@@ -22,18 +22,6 @@ const DELETE_POST_MUTATION: TypedDocumentNode<
   }
 `
 
-const jsonDisplay = (obj: { [key: string]: any }) => {
-  return (
-    <pre>
-      <code>{JSON.stringify(obj, null, 2)}</code>
-    </pre>
-  )
-}
-
-const checkboxInputTag = (checked: boolean) => {
-  return <input type="checkbox" checked={checked} disabled />
-}
-
 interface Props {
   post: NonNullable<FindPostById['post']>
 }

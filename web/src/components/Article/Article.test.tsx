@@ -1,6 +1,8 @@
 import { render, screen } from '@redwoodjs/testing'
 
-import Article, { truncate, TRUNCATION_LENGTH } from './Article'
+import { truncate, MAX_TRUNCATION_LENGTH } from 'src/lib/formatters'
+
+import Article from './Article'
 const ARTICLE = {
   id: '1',
   title: 'First post',
@@ -23,7 +25,7 @@ describe('Article', () => {
 
     expect(screen.getByText(ARTICLE.title)).toBeInTheDocument()
     expect(
-      screen.getByText(truncate(ARTICLE.body, TRUNCATION_LENGTH))
+      screen.getByText(truncate(ARTICLE.body, MAX_TRUNCATION_LENGTH))
     ).toBeInTheDocument()
   })
 })

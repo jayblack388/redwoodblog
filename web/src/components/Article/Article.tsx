@@ -2,11 +2,9 @@ import type { Post } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 
-export const TRUNCATION_LENGTH = 100
+import { truncate } from 'src/lib/formatters'
 
-export const truncate = (text: string, length: number) => {
-  return text.substring(0, length) + '...'
-}
+export const TRUNCATION_LENGTH = 100
 
 interface Props {
   article: Omit<Post, 'createdAt'>
