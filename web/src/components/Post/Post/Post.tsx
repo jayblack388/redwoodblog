@@ -22,7 +22,7 @@ const DELETE_POST_MUTATION: TypedDocumentNode<
   }
 `
 
-const jsonDisplay = (obj) => {
+const jsonDisplay = (obj: { [key: string]: any }) => {
   return (
     <pre>
       <code>{JSON.stringify(obj, null, 2)}</code>
@@ -30,7 +30,7 @@ const jsonDisplay = (obj) => {
   )
 }
 
-const checkboxInputTag = (checked) => {
+const checkboxInputTag = (checked: boolean) => {
   return <input type="checkbox" checked={checked} disabled />
 }
 

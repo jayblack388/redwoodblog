@@ -45,6 +45,5 @@ export const Success = ({
 
 /* I wonder if this lifecycle function could replace the id with the slug  */
 export function afterQuery({ article }: { article: Post }) {
-  console.log({ article })
   return { article }
 }
