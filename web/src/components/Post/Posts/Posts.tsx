@@ -1,21 +1,10 @@
-import type {
-  DeletePostMutation,
-  DeletePostMutationVariables,
-  FindPosts,
-} from 'types/graphql'
-
 import { Link, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
-import type { TypedDocumentNode } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { QUERY } from 'src/components/Post/PostsCell'
-import { timeTag, truncate } from 'src/lib/formatters'
 
-const DELETE_POST_MUTATION: TypedDocumentNode<
-  DeletePostMutation,
-  DeletePostMutationVariables
-> = gql`
+const DELETE_POST_MUTATION = gql`
   mutation DeletePostMutation($id: String!) {
     deletePost(id: $id) {
       id
@@ -23,13 +12,36 @@ const DELETE_POST_MUTATION: TypedDocumentNode<
   }
 `
 
-const PostsList = ({ posts }: FindPosts) => {
+const MAX_STRING_LENGTH = 150
+
+const truncate = (text) => {
+  let output = text
+  if (text && text.length > MAX_STRING_LENGTH) {
+    output = output.substring(0, MAX_STRING_LENGTH) + '...'
+  }
+  return output
+}
+
+const jsonTruncate = (obj) => {
+  return truncate(JSON.stringify(obj, null, 2))
+}
+
+const timeTag = (datetime) => {
+  return (
+    <time dateTime={datetime} title={datetime}>
+      {new Date(datetime).toUTCString()}
+    </time>
+  )
+}
+
+const checkboxInputTag = (checked) => {
+  return <input type="checkbox" checked={checked} disabled />
+}
+
+const PostsList = ({ posts }) => {
   const [deletePost] = useMutation(DELETE_POST_MUTATION, {
     onCompleted: () => {
       toast.success('Post deleted')
-    },
-    onError: (error) => {
-      toast.error(error.message)
     },
     // This refetches the query on the list page. Read more about other ways to
     // update the cache over here:
@@ -38,7 +50,7 @@ const PostsList = ({ posts }: FindPosts) => {
     awaitRefetchQueries: true,
   })
 
-  const onDeleteClick = (id: DeletePostMutationVariables['id']) => {
+  const onDeleteClick = (id) => {
     if (confirm('Are you sure you want to delete post ' + id + '?')) {
       deletePost({ variables: { id } })
     }
@@ -51,10 +63,9 @@ const PostsList = ({ posts }: FindPosts) => {
           <tr>
             <th>Id</th>
             <th>Title</th>
-            <th>Slug</th>
             <th>Body</th>
             <th>Created at</th>
-            <th>Actions</th>
+            <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
@@ -62,7 +73,6 @@ const PostsList = ({ posts }: FindPosts) => {
             <tr key={post.id}>
               <td>{truncate(post.id)}</td>
               <td>{truncate(post.title)}</td>
-              <td>{truncate(post.slug)}</td>
               <td>{truncate(post.body)}</td>
               <td>{timeTag(post.createdAt)}</td>
               <td>
@@ -82,7 +92,6 @@ const PostsList = ({ posts }: FindPosts) => {
                     Edit
                   </Link>
                   <button
-                    type="button"
                     title={'Delete post ' + post.id}
                     className="rw-button rw-button-small rw-button-red"
                     onClick={() => onDeleteClick(post.id)}
