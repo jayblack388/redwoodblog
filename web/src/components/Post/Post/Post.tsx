@@ -30,14 +30,6 @@ const jsonDisplay = (obj) => {
   )
 }
 
-const timeTag = (datetime) => {
-  return (
-    <time dateTime={datetime} title={datetime}>
-      {new Date(datetime).toUTCString()}
-    </time>
-  )
-}
-
 const checkboxInputTag = (checked) => {
   return <input type="checkbox" checked={checked} disabled />
 }
