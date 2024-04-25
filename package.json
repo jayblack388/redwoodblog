@@ -23,5 +23,11 @@
   "prisma": {
     "seed": "yarn rw exec seed"
   },
+  "scripts": {
+    "dev": "yarn rw dev",
+    "migrate": "yarn rw prisma migrate dev",
+    "test": "yarn rw test",
+    "storybook": "yarn rw storybook"
+  },
   "packageManager": "yarn@4.1.1"
 }

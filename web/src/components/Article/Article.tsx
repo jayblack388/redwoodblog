@@ -2,6 +2,8 @@ import type { Post } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 
+import CommentForm from 'src/components/CommentForm'
+import CommentsCell from 'src/components/CommentsCell'
 import { truncate } from 'src/lib/formatters'
 
 export const TRUNCATION_LENGTH = 100
@@ -22,6 +24,14 @@ const Article = ({ article, summary = false }: Props) => {
       <div className="mt-2 font-light text-gray-900">
         {summary ? truncate(article.body, TRUNCATION_LENGTH) : article.body}
       </div>
+      {!summary && (
+        <div className="mt-12">
+          <CommentForm postId={article.id} />
+          <div className="mt-12">
+            <CommentsCell postId={article.id} />{' '}
+          </div>
+        </div>
+      )}
     </article>
   )
 }
