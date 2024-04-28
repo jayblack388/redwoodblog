@@ -1,3 +1,5 @@
+// import { standard as userScenario } from 'api/src/services/users/users.scenarios'
+
 import { render, screen, waitFor } from '@redwoodjs/testing'
 
 import { standard } from 'src/components/CommentsCell/CommentsCell.mock'
@@ -10,6 +12,13 @@ const ARTICLE = {
   body: `Neutra tacos hot chicken prism raw denim, put a bird on it enamel pin post-ironic vape cred DIY. Street art next level umami squid. Hammock hexagon glossier 8-bit banjo. Neutra la croix mixtape echo park four loko semiotics kitsch forage chambray. Semiotics salvia selfies jianbing hella shaman. Letterpress helvetica vaporware cronut, shaman butcher YOLO poke fixie hoodie gentrify woke heirloom.`,
   createdAt: new Date().toISOString(),
   slug: 'first-post',
+  user: {
+    email: 'email@email.com',
+    name: 'Testy',
+    id: '1',
+    roles: 'admin',
+    posts: [],
+  },
 }
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components

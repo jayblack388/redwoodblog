@@ -23,6 +23,9 @@ export const QUERY: TypedDocumentNode<
       body
       createdAt
       slug
+      user {
+        name
+      }
     }
   }
 `

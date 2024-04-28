@@ -12,12 +12,13 @@ export const QUERY: TypedDocumentNode<
   CommentsQuery,
   CommentsQueryVariables
 > = gql`
-  query CommentsQuery($postId: Int!) {
+  query CommentsQuery($postId: String!) {
     comments(postId: $postId) {
-      id
-      name
       body
       createdAt
+      id
+      name
+      postId
     }
   }
 `

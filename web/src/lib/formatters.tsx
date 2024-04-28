@@ -25,6 +25,14 @@ export const jsonDisplay = (obj: unknown) => {
   )
 }
 
+export const formattedDate = (
+  datetime: ConstructorParameters<typeof Date>[0]
+) => {
+  const parsedDate = new Date(datetime)
+  const month = parsedDate.toLocaleString('default', { month: 'long' })
+  return `${parsedDate.getDate()} ${month} ${parsedDate.getFullYear()}`
+}
+
 export const truncate = (
   value: string | number,
   length: number = MAX_TRUNCATION_LENGTH

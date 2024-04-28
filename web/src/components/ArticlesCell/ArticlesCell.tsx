@@ -11,7 +11,10 @@ export const QUERY = gql`
       title
       body
       createdAt
-      slug
+      # slug
+      user {
+        name
+      }
     }
   }
 `

@@ -1,6 +1,7 @@
 import { Prisma } from '@prisma/client'
-import type { QueryResolvers, CommentRelationResolvers } from 'types/graphql'
+import type { CommentRelationResolvers } from 'types/graphql'
 
+import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
 export const comments = ({
@@ -8,12 +9,6 @@ export const comments = ({
 }: Required<Pick<Prisma.CommentWhereInput, 'postId'>>) => {
   return db.comment.findMany({ where: { postId } })
 }
-
-// export const comment: QueryResolvers['comment'] = ({ id }) => {
-//   return db.comment.findUnique({
-//     where: { id },
-//   })
-// }
 
 export const Comment: CommentRelationResolvers = {
   post: (_obj, { root }) => {
@@ -32,6 +27,7 @@ export const createComment = ({ input }: CreateCommentArgs) => {
 }
 
 export const deleteComment = ({ id }: Prisma.CommentWhereUniqueInput) => {
+  requireAuth({ roles: ['moderator', 'admin'] })
   return db.comment.delete({
     where: { id },
   })
