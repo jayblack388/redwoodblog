@@ -21,10 +21,13 @@ describe('adminPosts', () => {
   beforeEach(() => {
     mockCurrentUser({ ...userScenario.user.one.data })
   })
-  scenario('returns all posts', async (scenario: StandardScenario) => {
-    const result = await adminPosts()
-
-    expect(result.length).toEqual(Object.keys(scenario.post).length)
+  scenario('returns all posts for a user', async (scenario) => {
+    mockCurrentUser(scenario.user.one)
+    const results = await adminPosts()
+    const userOnesPosts = Object.values(scenario.post).filter(
+      (p: Post) => p.userId === scenario.user.one.id
+    )
+    expect(results).toEqual(userOnesPosts)
   })
 
   scenario('returns a single post', async (scenario: StandardScenario) => {

@@ -22,7 +22,7 @@ export const standard = defineScenario<Prisma.PostCreateArgs>({
         body: 'Body 2',
         slug: 'title-2',
         createdAt: new Date('01-01-2024'),
-        userId: scenario.user.one.id,
+        userId: scenario.user.two.id,
       },
     }),
   },
